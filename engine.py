@@ -1,4 +1,5 @@
 from pynput import keyboard
+from typing import Union
 import os
 
 key = lambda key: keyboard.KeyCode.from_char(key)
@@ -7,7 +8,7 @@ key = lambda key: keyboard.KeyCode.from_char(key)
 class Area:
     areas = []
 
-    def __init__(self, width: int=5, height: int=5, texture: str='_'):
+    def __init__(self, width: int=5, height: int=5, texture: str='_', layer: Union[None, int]=None):
         if texture == '':
             self.texture = '_'
         else:
@@ -25,6 +26,8 @@ class Area:
 
         self.width = width
         self.height = height
+        self.layer = layer
+
         self.entities = []
 
         self.__class__.areas.append(self)
@@ -33,7 +36,7 @@ class Area:
         os.system('cls')
 
         area_full = [[self.texture for _ in range(self.width)] for _ in range(self.height)]
-        area_layers = [[None for _ in range(self.width)] for _ in range(self.height)]
+        area_layers = [[self.layer for _ in range(self.width)] for _ in range(self.height)]
 
         for entity in self.entities:
             for i in entity.get_covers():
@@ -50,7 +53,7 @@ class Area:
         print(f'\r{self}', end='')
 
     def __str__(self):
-        return f'area ID {self.__class__.areas.index(self)}'
+        return f'area {self.texture} ID {self.__class__.areas.index(self)} with {len(self.entities)} entities'
 
 class Entity:
     entities = []

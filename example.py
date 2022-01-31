@@ -2,10 +2,10 @@ from pynput import keyboard
 import os
 import engine
 
-area = engine.Area(width=20, height=20)
+area = engine.Area(width=20, height=20, texture='~', layer=1)
 
-player_1 = engine.Player(area, texture='@', y=2, x=3, width=3, height=3)
-player_2 = engine.Player(area, texture='%', layer=1, y=2, x=3, width=3, height=3)
+player_1 = engine.Player(area, texture='@', y=10, x=10, width=3, height=3)
+player_2 = engine.Player(area, texture='%', layer=1, y=5, x=10, width=3, height=3)
 
 wall = engine.Entity(area, texture='/', layer=2, y=2, x=2, width=4, height=4)
 platform = engine.Entity(area, texture='\\', layer=-1, y=4, x=4, width=4, height=4)
