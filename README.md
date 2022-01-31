@@ -29,6 +29,5 @@
  * width - entity width (Default 1)
  * height - entity height (Default 1)
 
-A player is an entity that can be controlled by simple commands (likely to be removed soon due to too small differences in functionality with entities).
-Player requires the same arguments as the entity
-
+Show area:
+`area.show()` or `show(area)`
