@@ -3,7 +3,6 @@ import os
 import engine
 
 def translate_keys(func):
-
     keys_up = {keyboard.Key.up, engine.key('w')}
     keys_down = {keyboard.Key.down, engine.key('s')}
     keys_left = {keyboard.Key.left, engine.key('a')}
@@ -47,14 +46,14 @@ platform = engine.Entity(area, texture='\\', layer=-1, y=4, x=4, width=4, height
 
 area.show()
 
-allowed_keys_1 = {
+keys_1 = {
     keyboard.Key.up,
     keyboard.Key.down,
     keyboard.Key.left,
     keyboard.Key.right
 }
 
-allowed_keys_2 = {
+keys_2 = {
     engine.key('w'),
     engine.key('s'),
     engine.key('a'),
@@ -62,10 +61,10 @@ allowed_keys_2 = {
 }
 
 def pressed(key):
-    if key in allowed_keys_1:
+    if key in keys_1:
         move(player_1, key)
 
-    elif key in allowed_keys_2:
+    elif key in keys_2:
         move(player_2, key)
 
     elif key == keyboard.Key.esc:
