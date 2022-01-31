@@ -35,6 +35,7 @@ def move(entity, key):
         entity.x += 1
 
     area.show()
+    print(f'\r{area}', end='')
 
 area = engine.Area(width=20, height=20, texture='~', layer=0)
 
@@ -45,6 +46,7 @@ wall = engine.Entity(area, texture='/', layer=2, y=2, x=2, width=4, height=4)
 platform = engine.Entity(area, texture='\\', layer=-1, y=4, x=4, width=4, height=4)
 
 area.show()
+print(f'\r{area}', end='')
 
 keys_1 = {
     keyboard.Key.up,

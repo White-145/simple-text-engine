@@ -58,8 +58,6 @@ class Area:
         for line in [''.join(area_full[self.height - x - 1]) for x in range(self.height)]:
             print(line)
 
-        print(f'\r{self}', end='')
-
     def __str__(self):
         return f'area {self.texture} ID {self.__class__.areas.index(self)} with {len(self.entities)} entities'
 
