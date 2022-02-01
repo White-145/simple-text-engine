@@ -1,4 +1,4 @@
-# simple text engine
+# About
  Engine for simple text "games" in the terminal
 
  I use this project to test my OOP skills
@@ -7,6 +7,7 @@
  
  `pip install pynput`
  
+ # Area
  Add area:
  
  `class Area(width: int=5, height: int=5, texture: str='_', layer: int=None)`
@@ -20,7 +21,9 @@
  Example:
  `area = Area(width=10, height=10, texture='-')`
  
+ # Entity
  An entity is an object with its own texture located on the area.
+ 
  Add entity:
  
  `class Entity(area, texture: str='#', layer: int=0, y: int=0, x: int=0, width: int=1, height: int=1)`
