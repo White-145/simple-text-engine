@@ -77,6 +77,8 @@ class Entity:
         limit = lambda x: 1 if x < 1 else x
 
         # set variables
+        self.area = area
+        
         self.texture = fix_texture(set_arg("texture", kwargs, str, '#'))
         self.layer = set_arg("layer", kwargs, int, 0)
         self.y = set_arg('y', kwargs, int, 0)
