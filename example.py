@@ -1,12 +1,12 @@
 from pynput import keyboard
 import os
-import engine
+import main
 
 def translate_keys(func):
-    keys_up = {keyboard.Key.up, engine.key('w')}
-    keys_down = {keyboard.Key.down, engine.key('s')}
-    keys_left = {keyboard.Key.left, engine.key('a')}
-    keys_right = {keyboard.Key.right, engine.key('d')}
+    keys_up = {keyboard.Key.up, main.key('w')}
+    keys_down = {keyboard.Key.down, main.key('s')}
+    keys_left = {keyboard.Key.left, main.key('a')}
+    keys_right = {keyboard.Key.right, main.key('d')}
 
     def wrapper(entity, key):
         if key in keys_up:
@@ -37,13 +37,13 @@ def move(entity, key):
     area.show()
     print(f'\r{area}', end='')
 
-area = engine.Area(width=20, height=20, texture='~', layer=0)
+area = main.Area(width=20, height=20, texture='-', layer=0)
 
-player_1 = engine.Entity(area, texture='@', y=10, x=10, width=3, height=3)
-player_2 = engine.Entity(area, texture='%', layer=1, y=5, x=10, width=3, height=3)
+player_1 = main.Entity(area, texture='@', y=10, x=10, width=3, height=2)
+player_2 = main.Entity(area, texture='%', layer=1, y=5, x=10, width=3, height=3)
 
-wall = engine.Entity(area, texture='/', layer=2, y=2, x=2, width=4, height=4)
-platform = engine.Entity(area, texture='\\', layer=-1, y=4, x=4, width=4, height=4)
+wall = main.Entity(area, texture='/', layer=2, y=2, x=2, width=4, height=4)
+platform = main.Entity(area, texture='\\', layer=-1, y=4, x=4, width=4, height=4)
 
 area.show()
 print(f'\r{area}', end='')
@@ -56,10 +56,10 @@ keys_1 = {
 }
 
 keys_2 = {
-    engine.key('w'),
-    engine.key('s'),
-    engine.key('a'),
-    engine.key('d')
+    main.key('w'),
+    main.key('s'),
+    main.key('a'),
+    main.key('d')
 }
 
 def pressed(key):
