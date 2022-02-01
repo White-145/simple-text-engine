@@ -21,6 +21,9 @@
  Example:
  `area = Area(width=10, height=10, texture='-')`
  
+ Show area:
+ `area.show()` or `show(area)`
+
  # Entity
  An entity is an object with its own texture located on the area.
  
@@ -40,5 +43,3 @@
  Example:
  `entity = entity(area, texture='@', y=2, x=2)`
 
-Show area:
-`area.show()` or `show(area)`
