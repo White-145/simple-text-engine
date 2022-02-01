@@ -9,7 +9,10 @@
  
  Add area:
  
- `area = engine.Area(width: int=5, height: int=5, texture: str='_', layer: [None, int]=None)`
+ `class Area(width: int=5, height: int=5, texture: str='_', layer: int=None)`
+ 
+ Example:
+ `area = Area(width=10, height=10, texture='-')`
  Arguments:
  * width - area width (Default 5)
  * height - area height (Default 5)
@@ -19,7 +22,10 @@
  An entity is an object with its own texture located on the area.
  Add entity:
  
- `entity = engine.Entity(area, texture: str='#', layer: int=0, y: int=0, x: int=0, width: int=1, height: int=1)`
+ `class Entity(area, texture: str='#', layer: int=0, y: int=0, x: int=0, width: int=1, height: int=1)`
+ 
+ Example:
+ `entity = entity(area, texture='@', y=2, x=2)`
  Arguments:
  * area - the area on which the entity is located
  * texture - entity texture symbol (Default '#')
