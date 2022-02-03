@@ -39,13 +39,14 @@ def move(entity, key):
     print(f'\r{area}', end='')
 
 # Setup area
-area = main.Area(width=20, height=20, texture='-', layer=0)
+area = main.Area(width=20, height=20, texture='-', layer=0, id="area")
 
 # Create entities
+wall = main.Entity(area, texture='/', layer=2, y=2, x=2, width=4, height=4, id=1)
+
 player_1 = main.Entity(area, texture='@', y=10, x=10, width=3, height=2)
 player_2 = main.Entity(area, texture='%', layer=1, y=5, x=10, width=3, height=3)
 
-wall = main.Entity(area, texture='/', layer=2, y=2, x=2, width=4, height=4)
 platform = main.Entity(area, texture='\\', layer=-1, y=4, x=4, width=4, height=4)  # This entity will be hidden due of highter area layer
 
 # Show area and area info

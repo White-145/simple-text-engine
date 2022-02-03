@@ -1,5 +1,6 @@
 from pynput import keyboard
 import os
+import typing
 
 key = lambda key: keyboard.KeyCode.from_char(key)  # function to get text key
 
@@ -22,12 +23,24 @@ def fix_texture(texture):
     else:
         return texture[0]
 
+def update_next_id(cls, entries):
+    def check(check_id):
+        for entry in entries:
+            if entry.id == check_id:
+                break
+        else:
+            return check_id
+        return check(check_id + 1)
+
+    cls.next_id = check(cls.next_id + 1)
+
 class Area:
     areas = []  # list of all areas
+    next_id = 0
 
     def __init__(self, **kwargs):
         # throw error if extra args given
-        if list(filter(lambda x: x not in {"width", "height", "layer", "texture"}, kwargs)):
+        if list(filter(lambda x: x not in {"width", "height", "layer", "texture", "id"}, kwargs)):
             raise TypeError("invalid keyword arguments to Area()")
 
         clamp = lambda x, l: max(1, min(x, l))
@@ -37,6 +50,20 @@ class Area:
         self.height = clamp(set_arg("height", kwargs, int, 5), 29)
         self.layer = set_arg('layer', kwargs, int, None)
         self.texture = fix_texture(set_arg('texture', kwargs, str, '_'))
+
+        area_id = set_arg('id', kwargs, typing.Union[int, str], None)
+        if area_id == None:
+            area_id = self.__class__.next_id
+            update_next_id(self.__class__, self.__class__.areas)
+        else:
+            if isinstance(area_id, int):
+                if area_id == self.__class__.next_id:
+                    update_next_id(self.__class__, self.__class__.areas)
+            for area in self.__class__.areas:
+                if area.id == area_id:
+                    raise ValueError("Area with given id already exists")
+
+        self.id = area_id
 
         self.entities = []  # all entities on area
         self.__class__.areas.append(self)  # add area to all areas
@@ -56,22 +83,22 @@ class Area:
                 area_full[i[0]][i[1]] = entity.texture
                 area_layers[i[0]][i[1]] = entity.layer
 
-        for line in [''.join(area_full[self.height - x - 1]) for x in range(self.height)]:
-            print(line)
+        print('\n'.join([''.join(area_full[self.height - x - 1]) for x in range(self.height)]))
 
     def __str__(self):
-        return f'area {self.texture} ID {self.__class__.areas.index(self)} with {len(self.entities)} entities'
+        return f'area {self.texture} ID {self.id} with {len(self.entities)} entities'
 
 class Entity:
     entities = []  # list of all entities
+    next_id = 0
 
     def __init__(self, area, **kwargs):
         # throw error if area not given
         if not isinstance(area, Area):
-            raise TypeError("area must be instance of Area class")
+            raise TypeError("area must be an instance of Area class")
 
         # throw error if extra args given
-        if list(filter(lambda x: x not in {"texture", "layer", 'y', 'x', "width", "height"}, kwargs)):
+        if list(filter(lambda x: x not in {"texture", "layer", 'y', 'x', "width", "height", "id"}, kwargs)):
             raise TypeError("invalid keyword arguments to Entity()")
 
         limit = lambda x: 1 if x < 1 else x
@@ -85,6 +112,20 @@ class Entity:
         self.x = set_arg('x', kwargs, int, 0)
         self.width = limit(set_arg('width', kwargs, int, 1))
         self.height = limit(set_arg('height', kwargs, int, 1))
+
+        entity_id = set_arg('id', kwargs, typing.Union[int, str], None)
+        if entity_id == None:
+            entity_id = self.__class__.next_id
+            update_next_id(self.__class__, self.__class__.entities)
+        else:
+            if isinstance(entity_id, int):
+                if entity_id == self.__class__.next_id:
+                    update_next_id(self.__class__, self.__class__.entities)
+            for entity in self.__class__.entities:
+                if entity.id == entity_id:
+                    raise ValueError("Entity with given id already exists")
+
+        self.id = entity_id
 
         area.entities.append(self)  # add entity to area
         self.__class__.entities.append(self)  # add entity to all entities
@@ -100,4 +141,4 @@ class Entity:
         return covers
 
     def __str__(self):
-        return f'entity {self.texture} ID {self.__class__.entities.index(self)}'
+        return f'entity {self.texture} ID {self.id}'
