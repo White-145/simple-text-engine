@@ -140,5 +140,22 @@ class Entity:
 
         return covers
 
+    def move_to_area(self, area, **kwargs):
+        # throw error if area not given
+        if not isinstance(area, Area):
+            raise TypeError("area must be an instance of Area class")
+
+        # throw error if extra args given
+        if list(filter(lambda x: x not in {'y', 'x'}, kwargs)):
+            raise TypeError("invalid keyword arguments to Entity().move_to_area()")
+
+        # update area
+        self.area.entities.pop(self.area.entities.index(self))
+        self.area = area
+        area.entities.append(self)
+
+        self.y = set_arg('y', kwargs, int, self.y)
+        self.x = set_arg('x', kwargs, int, self.x)
+
     def __str__(self):
         return f'entity {self.texture} ID {self.id}'

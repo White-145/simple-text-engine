@@ -40,6 +40,7 @@ def move(entity, key):
 
 # Setup area
 area = main.Area(width=20, height=20, texture='-', layer=0, id="area")
+area2 = main.Area(width=20, height=20, texture='-', layer=0, id="area2")
 
 # Create entities
 wall = main.Entity(area, texture='/', layer=2, y=2, x=2, width=4, height=4, id=1)
@@ -74,6 +75,10 @@ def pressed(key):
 
     elif key in keys_2:
         move(player_2, key)
+
+    elif key == keyboard.Key.tab:
+        player_2.move_to_area(area2)
+        area2.show()
 
     elif key == keyboard.Key.esc:
         return False
